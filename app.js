@@ -8,11 +8,30 @@ const server = http.Server(app);
 // framework to mongoDB
 const mongoose = require('mongoose');
 
+// Vars for routing in server
+const usersRouter = require('./routes/users');
+const onlineUsers = require('./routes/onlineUsers');
+
+// use routers
+app.use('/users', usersRouter);
+app.use('/onlineUsers',onlineUsers);
+
 // define socketio to server
 const socketio = require('socket.io');
 const io = socketio(server);
 
+// port define
 const PORT = process.env.PORT || 5000;
+
+// connecting to mongodb
+mongoose.connect("mongodb+srv://Tom:yewMZEZVsb7tsAan@cluster0-atxex.mongodb.net/ChatUsers?retryWrites=true")
+    .then(() => {
+        console.log('connect to mongoDb!')
+    })
+    .catch((error) => {
+        console.log(error);
+    });
+
 
 app.get("/", (req, res) => {
     res.send({ hello: "world" });
