@@ -10,10 +10,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "mongoose": "^5.4.19",
+    "socket.io": "^2.2.0"
   },
   "engines": {
-    "node":"11.9.0",
-    "npm":"6.5.0"
+    "node": "11.9.0",
+    "npm": "6.5.0"
   }
 }
