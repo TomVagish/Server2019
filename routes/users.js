@@ -76,7 +76,7 @@ router.post("/login", (req, res, next) => {
           email: user.userEmail,
           userId: user._Id
         },
-        "secret_t_v_angular-chat",
+        process.env.JWT_KEY,
         { expiresIn: "2h" }
       );
       res.status(200).json({ token: token,username:user.userName });

@@ -24,17 +24,16 @@ app.use((req,res,next) =>{
 })
 
 // Define port to server listen
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 3000;
 
 // connecting to mongodb
-mongoose.connect("mongodb+srv://Tom:yewMZEZVsb7tsAan@cluster0-atxex.mongodb.net/ChatUsers?retryWrites=true",{ useNewUrlParser: true })
+mongoose.connect("mongodb+srv://Tom:"+process.env.MONGO_PASSWORD+"@cluster0-atxex.mongodb.net/ChatUsers?retryWrites=true")
     .then(() => {
         console.log('connect to mongoDb!')
     })
     .catch((error) => {
         console.log(error);
     });
-
 
 
 
