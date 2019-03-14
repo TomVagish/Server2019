@@ -1,30 +1,33 @@
 const express = require('express');
 const app = express();
-
+const path = require('path');
 // define http & server
 const http = require('http');
 const server = http.Server(app);
-
-// framework to mongoDB
-const mongoose = require('mongoose');
-
 // Vars for routing in server
 const usersRouter = require('./routes/users');
 const onlineUsers = require('./routes/onlineUsers');
-
-// use routers
-app.use('/users', usersRouter);
-app.use('/onlineUsers',onlineUsers);
+app.use("/",express.static(path.join(__dirname,"angular")));
+// framework to mongoDB
+const mongoose = require('mongoose');
 
 // define socketio to server
 const socketio = require('socket.io');
 const io = socketio(server);
 
-// port define
-const PORT = process.env.PORT || 5000;
+// all request to server with will go to this Router!
+
+app.use('/users', usersRouter);
+app.use('/onlineUsers',onlineUsers);
+app.use((req,res,next) =>{
+  res.sendFile(path.join(__dirname,"angular","index.html"));
+})
+
+// Define port to server listen
+const port = process.env.PORT || 3000;
 
 // connecting to mongodb
-mongoose.connect("mongodb+srv://Tom:yewMZEZVsb7tsAan@cluster0-atxex.mongodb.net/ChatUsers?retryWrites=true")
+mongoose.connect("mongodb+srv://Tom:yewMZEZVsb7tsAan@cluster0-atxex.mongodb.net/ChatUsers?retryWrites=true",{ useNewUrlParser: true })
     .then(() => {
         console.log('connect to mongoDb!')
     })
@@ -33,11 +36,9 @@ mongoose.connect("mongodb+srv://Tom:yewMZEZVsb7tsAan@cluster0-atxex.mongodb.net/
     });
 
 
-app.get("/", (req, res) => {
-    res.send({ hello: "world" });
- });
 
- // method that check if user connect
+
+// method that check if user connect
 io.on('connection',(socket) =>{
 
 
@@ -85,4 +86,10 @@ socket.on('stop-typing',(data) => {
 });
 
 
- app.listen(PORT);
+
+
+// server start listen to the port
+server.listen(port, () => {
+    console.log(`started on port: ${port}`);
+});
+

@@ -15,11 +15,8 @@ const jwt = require("jsonwebtoken");
 const { check, validationResult } = require("express-validator/check");
 
 
-
 router.use(bodyparser());
 router.use(cors());
-
-
 
 
 
@@ -62,6 +59,7 @@ router.post(
 
 // login route
 router.post("/login", (req, res, next) => {
+ 
 
   User.findOne({ userEmail: req.body.Email }).then(user => {
     if (!user) {
