@@ -24,10 +24,10 @@ app.use((req,res,next) =>{
 })
 
 // Define port to server listen
-var port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 
 // connecting to mongodb
-mongoose.connect("mongodb+srv://Tom:"+process.env.MONGO_PASSWORD+"@cluster0-atxex.mongodb.net/ChatUsers?retryWrites=true")
+mongoose.connect("mongodb+srv://Tom:yewMZEZVsb7tsAan@cluster0-atxex.mongodb.net/ChatUsers?retryWrites=true",{ useNewUrlParser: true })
     .then(() => {
         console.log('connect to mongoDb!')
     })
@@ -50,7 +50,7 @@ io.on('connection',(socket) =>{
     // new user join
     socket.on('join',function(data){
         socket.join(data.room)
-        console.log(data.user + " joined to:" + data.room + data.date);
+        console.log(data.user + " joined to:" + data.room + " in: " + data.date);
         socket.broadcast.to(data.room)
         .emit('new user joined',{user:data.user,message:'joined this room',date:data.date});
 

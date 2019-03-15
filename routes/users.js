@@ -74,13 +74,13 @@ router.post("/login", (req, res, next) => {
       const token = jwt.sign(
         {
           email: user.userEmail,
-          userId: user._Id
+         
         },
-        process.env.JWT_KEY,
+        "secret_t_v_angular-chat",
         { expiresIn: "2h" }
       );
       res.status(200).json({ token: token,username:user.userName });
-      req.session.userId = user._Id;
+   
     } else {
       return res.status(400).json({ message: "WRONG PASSWORD !" });
     }
