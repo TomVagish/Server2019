@@ -24,7 +24,7 @@ app.use((req,res,next) =>{
 })
 
 // Define port to server listen
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8080;
 
 // connecting to mongodb
 mongoose.connect("mongodb+srv://Tom:yewMZEZVsb7tsAan@cluster0-atxex.mongodb.net/ChatUsers?retryWrites=true",{ useNewUrlParser: true })
