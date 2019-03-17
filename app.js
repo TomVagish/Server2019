@@ -27,7 +27,7 @@ app.use((req,res,next) =>{
 const port = process.env.PORT || 8080;
 
 // connecting to mongodb
-mongoose.connect("mongodb+srv://Tom:yewMZEZVsb7tsAan@cluster0-atxex.mongodb.net/ChatUsers?retryWrites=true",{ useNewUrlParser: true })
+mongoose.connect("mongodb+srv://Tom:"+process.env.MONGO_PASSWORD+"@cluster0-atxex.mongodb.net/ChatUsers?retryWrites=true",{ useNewUrlParser: true })
     .then(() => {
         console.log('connect to mongoDb!')
     })
